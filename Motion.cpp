@@ -26,7 +26,7 @@ int main(void) {
 
 	printMatrix(A, 2);
 	
-	cout << detA << "\n";
+	cout << "detA = " << detA << "\n";
 
 	return 0;
 }
