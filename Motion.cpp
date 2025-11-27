@@ -28,19 +28,17 @@ int main(void) {
 	for (int i = 0; i < size; i++)
 		cin >> C[i];
 	
-	
 	//Swap
 	double** temp = new double* [size];
 	for (int i = 0; i < size; i++) {
 		temp[i] = new double[size]();
 	}
-	temp[0][0] = A[1][1];
-	temp[1][1] = A[0][0];
-	temp[0][1] = A[1][0] * -1;
-	temp[1][0] = A[0][1] * -1;
 
 	//Devide detA
 	double detA = A[0][0] * A[1][1] - A[0][1] * A[1][0];
+	for (int i = 0; i < size; i++)
+		delete[] A[i];
+	delete[] A;
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++)
 			temp[i][j] /= detA;
@@ -54,6 +52,12 @@ int main(void) {
 	}
 
 	printArray(B, size);
+	
+	for (int i = 0; i < size; i++)
+		delete[] temp[i];
+	delete[] temp;
+	delete[] B;
+	delete[] C;
 
 	return 0;
 }
