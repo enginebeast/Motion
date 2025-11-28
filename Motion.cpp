@@ -28,35 +28,25 @@ int main(void) {
 	for (int i = 0; i < size; i++)
 		cin >> C[i];
 	
-	//Swap
 	double** temp = new double* [size];
 	for (int i = 0; i < size; i++) {
-		temp[i] = new double[size]();
+		temp[i] = new double[size+1]();
 	}
 
-	//Devide detA
-	double detA = A[0][0] * A[1][1] - A[0][1] * A[1][0];
-	for (int i = 0; i < size; i++)
-		delete[] A[i];
-	delete[] A;
 	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++)
-			temp[i][j] /= detA;
+		for (int j = 0; j < size + 1; j++) {
+			if (j != size)
+				temp[i][j] = A[i][j];
+			else
+				temp[i][j] = C[i];
+		}
 	}
 
-	//Solve
-	double* B = new double[size]();
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++)
-			B[i] += temp[i][j] * C[j];
-	}
-
-	printArray(B, size);
+	printMatrix(temp, size, size + 1);
 	
 	for (int i = 0; i < size; i++)
 		delete[] temp[i];
 	delete[] temp;
-	delete[] B;
 	delete[] C;
 
 	return 0;
