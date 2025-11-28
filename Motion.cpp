@@ -1,53 +1,44 @@
 #include <iostream>
-#include<utility>
+#include <fstream>
 using namespace std;
 
 void printArray(double* arr, int size);
 void printMatrix(double** Matrix, int row, int col);
 
 int main(void) {
-	int size;
-	cout << "Input size of matrix\n";
-	cin >> size;
+	ifstream myfile;
+	myfile.open("matrix.txt");
 
-	//matrix A
-	double** A = new double* [size];
+	int size = 3;
+	double** matrix = new double* [size];
 	for (int i = 0; i < size; i++) {
-		A[i] = new double[size]();
+		matrix[i] = new double[size + 1]();
 	}
 
-	cout << "Input matrix A\n";
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size; j++)
-			cin >> A[i][j];
-	}
-
-	//Vector C
-	double* C = new double[size]();
-	cout << "Input vector C\n";
-	for (int i = 0; i < size; i++)
-		cin >> C[i];
-	
-	double** temp = new double* [size];
-	for (int i = 0; i < size; i++) {
-		temp[i] = new double[size+1]();
-	}
-
-	for (int i = 0; i < size; i++) {
-		for (int j = 0; j < size + 1; j++) {
-			if (j != size)
-				temp[i][j] = A[i][j];
-			else
-				temp[i][j] = C[i];
+	//Read file
+	if (myfile.is_open()) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++)
+				myfile >> matrix[i][j];
 		}
 	}
 
-	printMatrix(temp, size, size + 1);
+	/*
+	for (int i = 0; i < size; i++) {
+		double tempDiv =  temp[i][0] / temp[i + 1][0];
+		for (int j = 0; j < size + 1; j++) {
+			temp[i + 1][j] -= temp[i][j] * tempDiv;
+		}
+	}
+	*/
+
+	printMatrix(matrix, size, size + 1);
 	
+	myfile.close();
+
 	for (int i = 0; i < size; i++)
-		delete[] temp[i];
-	delete[] temp;
-	delete[] C;
+		delete[] matrix[i];
+	delete[] matrix;
 
 	return 0;
 }
