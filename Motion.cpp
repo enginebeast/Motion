@@ -23,14 +23,15 @@ int main(void) {
 		}
 	}
 
-	/*
-	for (int i = 0; i < size; i++) {
-		double tempDiv =  temp[i][0] / temp[i + 1][0];
-		for (int j = 0; j < size + 1; j++) {
-			temp[i + 1][j] -= temp[i][j] * tempDiv;
-		}
-	}
-	*/
+	printMatrix(matrix, size, size + 1);
+	cout << "\n";
+	
+	//Swap
+	double* tempMatrix = new double [size];
+	
+	tempMatrix = matrix[0];
+	matrix[0] = matrix[1];
+	matrix[1] = tempMatrix;
 
 	printMatrix(matrix, size, size + 1);
 	
