@@ -29,10 +29,12 @@ int main(void) {
 	
 	//Calculate
 	double division;
-	for (int i = 1; i < size ; i++) {
-		division = matrix[i][0] / matrix[0][0];
-		for (int j = 0; j < size + 1; j++)
-			matrix[i][j] -= matrix[0][j] * division;
+	for (int i = 0; i < size - 1; i++) {
+		for (int j = i + 1; j < size; j++) {
+			division = matrix[j][i] / matrix[i][i];
+			for (int k = 0; k < size + 1; k++)
+				matrix[j][k] -= matrix[i][k] * division;
+		}
 	}
 
 	cout << "Result\n";
