@@ -22,12 +22,13 @@ int main(void) {
 				myfile >> matrix[i][j];
 		}
 	}
+	myfile.close();
 
 	cout << "Original matrix\n";
 	printMatrix(matrix, size, size + 1);
 	cout << "\n";
 	
-	//Calculate
+	//Get upper trianglular matrix
 	double division;
 	for (int i = 0; i < size - 1; i++) {
 		for (int j = i + 1; j < size; j++) {
@@ -37,11 +38,24 @@ int main(void) {
 		}
 	}
 
-	cout << "Result\n";
+	cout << "Upper triangular matrix\n";
 	printMatrix(matrix, size, size + 1);
+	cout << "\n";
 	
-	myfile.close();
+	//Get solution
+	double* solution = new double[size]();
+	for (int i = size - 1; i >= 0; i--) {
+		solution[i] = matrix[i][size];
+		for (int j = size - 1; j > i; j--)
+			solution[i] -= matrix[i][j] * solution[j];
+		solution[i] /= matrix[i][i];
+	}
 
+	cout << "Solutions" << "\n";
+	for (int i = 0; i < size; i++) 
+		cout << solution[i] << " ";
+	
+	//Free allocation
 	for (int i = 0; i < size; i++)
 		delete[] matrix[i];
 	delete[] matrix;
