@@ -23,6 +23,7 @@ int main(void) {
 		}
 	}
 
+	cout << "Original matrix\n";
 	printMatrix(matrix, size, size + 1);
 	cout << "\n";
 	
