@@ -18,7 +18,7 @@ int main(void) {
 	//Read file
 	if (myfile.is_open()) {
 		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++)
+			for (int j = 0; j < size + 1; j++)
 				myfile >> matrix[i][j];
 		}
 	}
@@ -29,10 +29,11 @@ int main(void) {
 	
 	//Swap
 	double* tempMatrix = new double [size];
-	
-	tempMatrix = matrix[0];
-	matrix[0] = matrix[1];
-	matrix[1] = tempMatrix;
+	double division = matrix[0][0] / matrix[1][0];
+
+	for (int i = 0; i < size + 1; i++) {
+		matrix[1][i] -= matrix[0][i]* division;
+	}
 
 	printMatrix(matrix, size, size + 1);
 	
