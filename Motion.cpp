@@ -30,11 +30,12 @@ int main(void) {
 	//Swap
 	double* tempMatrix = new double [size];
 	double division = matrix[0][0] / matrix[1][0];
+	
 
-	for (int i = 0; i < size + 1; i++) {
-		matrix[1][i] -= matrix[0][i]* division;
-	}
+	for (int i = 0; i < size + 1; i++)
+		matrix[1][i] -= matrix[0][i] * division;
 
+	cout << "Result\n";
 	printMatrix(matrix, size, size + 1);
 	
 	myfile.close();
