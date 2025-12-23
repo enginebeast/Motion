@@ -1,19 +1,19 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <vector>
+
 using namespace std;
 
 void printArray(double* arr, int size);
-void printMatrix(double** Matrix, int row, int col);
+void printMatrix(vector<vector<double>> matrix, int row, int col);
 
 int main(void) {
 	ifstream myfile;
 	myfile.open("matrix.txt");
 
 	int size = 3;
-	double** matrix = new double* [size];
-	for (int i = 0; i < size; i++) {
-		matrix[i] = new double[size + 1]();
-	}
+	vector<vector<double>> matrix(size, vector<double>(size + 1, 0));
 
 	//Read file
 	if (myfile.is_open()) {
@@ -56,9 +56,7 @@ int main(void) {
 		cout << solution[i] << " ";
 	
 	//Free allocation
-	for (int i = 0; i < size; i++)
-		delete[] matrix[i];
-	delete[] matrix;
+	delete[] solution;
 
 	return 0;
 }
@@ -68,10 +66,10 @@ void printArray(double* arr, int size) {
 		cout << arr[i] << " ";
 }
 
-void printMatrix(double** Matrix, int row, int col) {
+void printMatrix(vector<vector<double>> matrix, int row, int col) {
 	for (int i = 0; i < row; i++) {
 		for(int j = 0; j < col; j++)
-			cout << Matrix[i][j] << " ";
+			cout << matrix[i][j] << " ";
 		cout << "\n";
 	}
 	
