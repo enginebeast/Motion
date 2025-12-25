@@ -5,11 +5,7 @@
 
 using namespace std;
 
-struct equationMatrix {
-	vector<vector<double>> matrix;
-	vector<double> firstZeroIndexes;
-};
-
+bool compare(vector<double> a, vector<double> b);
 void printMatrix(vector<vector<double>> matrix, int row, int col);
 double findFirstZero(vector<double> v, int size);
 
@@ -17,6 +13,8 @@ int main(void) {
 	ifstream myfile;
 	myfile.open("matrix.txt");
 
+	//matrix[size] is constant
+	//matrix[size+1] is firstZeroIndex
 	int size = 3;
 	vector<vector<double>> matrix(size, vector<double>(size + 2, 0));
 
@@ -33,10 +31,15 @@ int main(void) {
 	printMatrix(matrix, size, size + 1);
 	cout << "\n";
 	
-
+	//Sorting
 	for (int i = 0; i < size; i++) {
-		findFirstZero(matrix[i], size);
+		matrix[i][size+1] = findFirstZero(matrix[i], size);
 	}
+	sort(matrix.begin(), matrix.end(), compare);
+
+	cout << "Sorting matrix by first zero\n";
+	printMatrix(matrix, size, size + 1);
+	cout << "\n";
 
 	//Get upper trianglular matrix
 	double division;
@@ -70,6 +73,11 @@ int main(void) {
 	delete[] solution;
 
 	return 0;
+}
+
+bool compare(vector<double> a, vector<double> b) {
+	double lastIndex = a.size() - 1;
+	return a[lastIndex] > b[lastIndex];
 }
 
 void printMatrix(vector<vector<double>> matrix, int row, int col) {
